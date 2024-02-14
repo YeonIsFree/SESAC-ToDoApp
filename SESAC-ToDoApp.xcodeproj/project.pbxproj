@@ -78,8 +78,13 @@
 		8C4691462B7C8FB20024FD0A /* SESAC-ToDoApp */ = {
 			isa = PBXGroup;
 			children = (
+				8C4691782B7D004C0024FD0A /* DesignSource */,
+				8C4691612B7C97A30024FD0A /* Extension */,
+				8C46915B2B7C8FDE0024FD0A /* Delegate */,
+				8C4691732B7CFFD30024FD0A /* Base */,
+				8C4691752B7CFFE50024FD0A /* Home */,
+				8C4691742B7CFFD80024FD0A /* Add */,
 				8C4691552B7C8FB30024FD0A /* Info.plist */,
-				8C4691722B7CFFCB0024FD0A /* View */,
 			);
 			path = "SESAC-ToDoApp";
 			sourceTree = "<group>";
@@ -100,19 +105,6 @@
 				8C4691792B7D01C10024FD0A /* DateFormatter+.swift */,
 			);
 			path = Extension;
-			sourceTree = "<group>";
-		};
-		8C4691722B7CFFCB0024FD0A /* View */ = {
-			isa = PBXGroup;
-			children = (
-				8C4691782B7D004C0024FD0A /* DesignSource */,
-				8C4691612B7C97A30024FD0A /* Extension */,
-				8C46915B2B7C8FDE0024FD0A /* Delegate */,
-				8C4691732B7CFFD30024FD0A /* Base */,
-				8C4691752B7CFFE50024FD0A /* Home */,
-				8C4691742B7CFFD80024FD0A /* Add */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		8C4691732B7CFFD30024FD0A /* Base */ = {
