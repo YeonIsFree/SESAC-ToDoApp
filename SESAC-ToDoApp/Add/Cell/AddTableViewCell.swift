@@ -31,9 +31,9 @@ class AddTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-     // MARK: -
+     // MARK: - UI Configuration Method
     
-    func render() {
+    private func render() {
         contentView.addSubview(titleTextField)
         titleTextField.snp.makeConstraints { make in
             make.top.equalTo(contentView)

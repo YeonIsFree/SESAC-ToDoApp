@@ -107,7 +107,7 @@ class HomeViewController: BaseViewController {
         todoCollectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: HomeCollectionViewCell.identifier)
     }
     
-    func configureToolBar() {
+    private func configureToolBar() {
         let leftBarButtonItem = UIBarButtonItem()
         let leftBarButtonImage = UIImage(systemName: "plus.circle.fill")
         leftBarButtonItem.image = leftBarButtonImage
@@ -127,6 +127,8 @@ class HomeViewController: BaseViewController {
         present(nav, animated: true)
     }
 }
+
+ // MARK: - UICollectionView Delegate
 
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
