@@ -54,7 +54,7 @@ class HomeViewController: BaseViewController {
     }()
     
     let toolBar = UIToolbar()
-
+    
      // MARK: - Life Cycle Method
     
     override func viewDidLoad() {
@@ -145,5 +145,14 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.configureCell(indexPath.item)
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // "전체" 셀을 누를 경우 화면 전환
+        if indexPath.item == HomeList.all.rawValue {
+            let vc = AllListViewController()
+            vc.navigationItem.title = HomeList(rawValue: indexPath.item)?.title
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }

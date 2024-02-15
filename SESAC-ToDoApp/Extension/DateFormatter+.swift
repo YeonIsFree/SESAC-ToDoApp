@@ -8,7 +8,7 @@
 import Foundation
 
 extension DateFormatter {
-    static func convertDate(_ raw: String) -> String {
+    static func convertDateToString(_ raw: String) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss +0000"
         guard let rawDate = formatter.date(from: raw) else { return "ERROR" }

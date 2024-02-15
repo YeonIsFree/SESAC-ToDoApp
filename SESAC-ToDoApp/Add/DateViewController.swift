@@ -27,7 +27,7 @@ class DateViewController: BaseViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        let date = DateFormatter.convertDate("\(datePicker.date)")
+        let date = DateFormatter.convertDateToString("\(datePicker.date)")
         
         print(datePicker.date)
         

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 enum TableViewSection: Int, CaseIterable {
     case todo
@@ -32,6 +33,8 @@ enum TableViewSection: Int, CaseIterable {
 
 class AddTodoViewController: BaseViewController {
     
+    var todoTitle: String = ""
+    var todoMemo: String = ""
     var todoDate: String = ""
     var todoTag: String = ""
     var todoPriority: String = ""
@@ -52,7 +55,7 @@ class AddTodoViewController: BaseViewController {
         configureNavigationBar()
     }
     
-     // MARK: - UI Configuration Method
+    // MARK: - UI Configuration Method
     
     override func render() {
         view.addSubview(addTableView)
@@ -62,7 +65,7 @@ class AddTodoViewController: BaseViewController {
     }
 }
 
- // MARK: - Notification Methods
+// MARK: - Notification Methods
 
 extension AddTodoViewController {
     private func addNotification() {
@@ -72,7 +75,7 @@ extension AddTodoViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(priorityValueChanged), name: PriorityViewController.priorityDidChanged, object: nil)
     }
-
+    
     @objc func dateValueChanged(notification: NSNotification) {
         guard let value = notification.userInfo?["todoDate"] as? String else { return }
         todoDate = value
@@ -110,6 +113,14 @@ extension AddTodoViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: AddTableViewCell.identifier, for: indexPath) as? AddTableViewCell else { return UITableViewCell() }
             
             cell.selectionStyle = .none
+            
+            // TextField Delegate
+            cell.titleTextField.delegate = self
+            cell.memoTextField.delegate = self
+            
+            // TextField에 tag 부여
+            cell.titleTextField.tag = 100
+            cell.memoTextField.tag = 101
             
             return cell
         }
@@ -165,6 +176,18 @@ extension AddTodoViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+// MARK: - TextField Delegate
+
+extension AddTodoViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField.tag == 100 {
+            todoTitle = textField.text!
+        } else {
+            todoMemo = textField.text!
+        }
+    }
+}
+
 // MARK: - UI Configuration Method
 
 extension AddTodoViewController {
@@ -184,6 +207,27 @@ extension AddTodoViewController {
         leftBarButton.action = #selector(cancelButtonTapped)
         leftBarButton.target = self
         navigationItem.leftBarButtonItem = leftBarButton
+        
+        let rightBarButton = UIBarButtonItem()
+        rightBarButton.title = "추가"
+        rightBarButton.action = #selector(addButtonTapped)
+        rightBarButton.target = self
+        navigationItem.rightBarButtonItem = rightBarButton
+    }
+    
+    @objc func addButtonTapped() {
+        let realm = try! Realm()
+        
+        //        print(realm.configuration.fileURL)
+        
+        let todoData = TodoTable(todoTitle: todoTitle, todoMemo: todoMemo, date: todoDate, tag: todoTag, priority: todoPriority)
+        
+        try! realm.write {
+            realm.add(todoData)
+            print("Realm Saved--")
+        }
+        
+        dismiss(animated: true)
     }
     
     @objc func cancelButtonTapped() {

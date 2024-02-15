@@ -24,6 +24,11 @@
 		8C46916F2B7CE3F00024FD0A /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C46916E2B7CE3F00024FD0A /* TagViewController.swift */; };
 		8C4691712B7CE40D0024FD0A /* PriorityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4691702B7CE40D0024FD0A /* PriorityViewController.swift */; };
 		8C46917A2B7D01C10024FD0A /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4691792B7D01C10024FD0A /* DateFormatter+.swift */; };
+		8C4691852B7E0C260024FD0A /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 8C4691842B7E0C260024FD0A /* Realm */; };
+		8C4691872B7E0C260024FD0A /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8C4691862B7E0C260024FD0A /* RealmSwift */; };
+		8C46918A2B7E0DA20024FD0A /* TodoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4691892B7E0DA20024FD0A /* TodoModel.swift */; };
+		8C46918D2B7E18520024FD0A /* AllListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C46918C2B7E18520024FD0A /* AllListViewController.swift */; };
+		8C46918F2B7E1FA40024FD0A /* AllListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C46918E2B7E1FA40024FD0A /* AllListTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +50,9 @@
 		8C46916E2B7CE3F00024FD0A /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewController.swift; sourceTree = "<group>"; };
 		8C4691702B7CE40D0024FD0A /* PriorityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityViewController.swift; sourceTree = "<group>"; };
 		8C4691792B7D01C10024FD0A /* DateFormatter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+.swift"; sourceTree = "<group>"; };
+		8C4691892B7E0DA20024FD0A /* TodoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoModel.swift; sourceTree = "<group>"; };
+		8C46918C2B7E18520024FD0A /* AllListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllListViewController.swift; sourceTree = "<group>"; };
+		8C46918E2B7E1FA40024FD0A /* AllListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllListTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +60,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C4691872B7E0C260024FD0A /* RealmSwift in Frameworks */,
+				8C4691852B7E0C260024FD0A /* Realm in Frameworks */,
 				8C46915E2B7C90960024FD0A /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -78,11 +88,13 @@
 		8C4691462B7C8FB20024FD0A /* SESAC-ToDoApp */ = {
 			isa = PBXGroup;
 			children = (
+				8C4691882B7E0D7C0024FD0A /* Model */,
 				8C4691782B7D004C0024FD0A /* DesignSource */,
 				8C4691612B7C97A30024FD0A /* Extension */,
 				8C46915B2B7C8FDE0024FD0A /* Delegate */,
 				8C4691732B7CFFD30024FD0A /* Base */,
 				8C4691752B7CFFE50024FD0A /* Home */,
+				8C46918B2B7E181B0024FD0A /* AllList */,
 				8C4691742B7CFFD80024FD0A /* Add */,
 				8C4691552B7C8FB30024FD0A /* Info.plist */,
 			);
@@ -163,6 +175,23 @@
 			path = DesignSource;
 			sourceTree = "<group>";
 		};
+		8C4691882B7E0D7C0024FD0A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8C4691892B7E0DA20024FD0A /* TodoModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8C46918B2B7E181B0024FD0A /* AllList */ = {
+			isa = PBXGroup;
+			children = (
+				8C46918C2B7E18520024FD0A /* AllListViewController.swift */,
+				8C46918E2B7E1FA40024FD0A /* AllListTableViewCell.swift */,
+			);
+			path = AllList;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -181,6 +210,8 @@
 			name = "SESAC-ToDoApp";
 			packageProductDependencies = (
 				8C46915D2B7C90960024FD0A /* SnapKit */,
+				8C4691842B7E0C260024FD0A /* Realm */,
+				8C4691862B7E0C260024FD0A /* RealmSwift */,
 			);
 			productName = "SESAC-ToDoApp";
 			productReference = 8C4691442B7C8FB20024FD0A /* SESAC-ToDoApp.app */;
@@ -212,6 +243,7 @@
 			mainGroup = 8C46913B2B7C8FB20024FD0A;
 			packageReferences = (
 				8C46915C2B7C90960024FD0A /* XCRemoteSwiftPackageReference "SnapKit" */,
+				8C4691832B7E0C260024FD0A /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 8C4691452B7C8FB20024FD0A /* Products */;
 			projectDirPath = "";
@@ -241,12 +273,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C46914C2B7C8FB20024FD0A /* BaseViewController.swift in Sources */,
+				8C46918F2B7E1FA40024FD0A /* AllListTableViewCell.swift in Sources */,
 				8C4691672B7CA3360024FD0A /* AddTodoViewController.swift in Sources */,
 				8C46917A2B7D01C10024FD0A /* DateFormatter+.swift in Sources */,
 				8C4691632B7C97B10024FD0A /* Identifiable+.swift in Sources */,
 				8C4691482B7C8FB20024FD0A /* AppDelegate.swift in Sources */,
+				8C46918A2B7E0DA20024FD0A /* TodoModel.swift in Sources */,
 				8C46914A2B7C8FB20024FD0A /* SceneDelegate.swift in Sources */,
 				8C4691692B7CA4380024FD0A /* AddTableViewCell.swift in Sources */,
+				8C46918D2B7E18520024FD0A /* AllListViewController.swift in Sources */,
 				8C46916F2B7CE3F00024FD0A /* TagViewController.swift in Sources */,
 				8C4691652B7C98AC0024FD0A /* HomeCollectionViewCell.swift in Sources */,
 				8C4691712B7CE40D0024FD0A /* PriorityViewController.swift in Sources */,
@@ -493,6 +528,14 @@
 				minimumVersion = 5.7.0;
 			};
 		};
+		8C4691832B7E0C260024FD0A /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -500,6 +543,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8C46915C2B7C90960024FD0A /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		8C4691842B7E0C260024FD0A /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8C4691832B7E0C260024FD0A /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		8C4691862B7E0C260024FD0A /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8C4691832B7E0C260024FD0A /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
