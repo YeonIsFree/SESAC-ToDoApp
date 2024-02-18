@@ -7,11 +7,12 @@
 
 import UIKit
 import RealmSwift
+import Toast
 
 enum TableViewSection: Int, CaseIterable {
     case todo
-    case deadLine
-    case tag
+    case todoDate
+    case todoTag
     case priority
     case addImage
     
@@ -19,14 +20,29 @@ enum TableViewSection: Int, CaseIterable {
         switch self {
         case .todo:
             return ""
-        case .deadLine:
+        case .todoDate:
             return "마감일"
-        case .tag:
+        case .todoTag:
             return "태그"
         case .priority:
             return "우선 순위"
         case .addImage:
             return "이미지 추가"
+        }
+    }
+    
+    var viewController: PassDataDelegate? {
+        switch self {
+        case .todo:
+            return nil
+        case .todoDate:
+            return DateViewController()
+        case .todoTag:
+            return TagViewController()
+        case .priority:
+            return PriorityViewController()
+        case .addImage:
+            return nil
         }
     }
 }
@@ -35,9 +51,8 @@ class AddTodoViewController: BaseViewController {
     
     var todoTitle: String = ""
     var todoMemo: String = ""
-    var todoDate: String = ""
-    var todoTag: String = ""
-    var todoPriority: String = ""
+    var changedValues: [String] = Array(repeating: "", count: TableViewSection.allCases.count)
+    let repository = TodoTableRepository()
     
     // MARK: - UI Property
     
@@ -78,19 +93,19 @@ extension AddTodoViewController {
     
     @objc func dateValueChanged(notification: NSNotification) {
         guard let value = notification.userInfo?["todoDate"] as? String else { return }
-        todoDate = value
+        changedValues[TableViewSection.todoDate.rawValue] = value
         addTableView.reloadData()
     }
     
     @objc func tagValueChanged(notification: NSNotification) {
         guard let value = notification.userInfo?["todoTag"] as? String else { return }
-        todoTag = value
+        changedValues[TableViewSection.todoTag.rawValue] = value
         addTableView.reloadData()
     }
     
     @objc func priorityValueChanged(notification: NSNotification) {
         guard let value = notification.userInfo?["todoPriority"] as? String else { return }
-        todoPriority = value
+        changedValues[TableViewSection.priority.rawValue] = value
         addTableView.reloadData()
     }
 }
@@ -133,36 +148,29 @@ extension AddTodoViewController: UITableViewDelegate, UITableViewDataSource {
             cell.accessoryType = .disclosureIndicator
             cell.selectionStyle = .none
             
-            switch indexPath.section {
-            case 1:
-                cell.cellSubTitleLabel.text = todoDate
-            case 2:
-                cell.cellSubTitleLabel.text = todoTag
-            case 3:
-                cell.cellSubTitleLabel.text = todoPriority
-            case 4:
-                cell.cellSubTitleLabel.text = ""
-            default:
-                break
-            }
+            let sectionType = TableViewSection.allCases[indexPath.section]
+            cell.cellTitleLabel.text = sectionType.title
+            cell.cellSubTitleLabel.text = changedValues[indexPath.section]
             
             return cell
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.section {
-        case 1:
-            let vc = DateViewController()
-            navigationController?.pushViewController(vc, animated: true)
-        case 2:
-            let vc = TagViewController()
-            navigationController?.pushViewController(vc, animated: true)
-        case 3:
-            let vc = PriorityViewController()
-            navigationController?.pushViewController(vc, animated: true)
-        default:
+        
+        let sectionType = TableViewSection.allCases[indexPath.section]
+        
+        switch sectionType {
+        case .todo:
             break
+        default:
+            if let vc = sectionType.viewController {
+                vc.changedValue = { value in
+                    self.changedValues[indexPath.section] = value
+                    self.addTableView.reloadData()
+                }
+                navigationController?.pushViewController(vc, animated: true)
+            }
         }
     }
     
@@ -216,21 +224,32 @@ extension AddTodoViewController {
     }
     
     @objc func addButtonTapped() {
-        let realm = try! Realm()
-        
-        //        print(realm.configuration.fileURL)
-        
-        let todoData = TodoTable(todoTitle: todoTitle, todoMemo: todoMemo, date: todoDate, tag: todoTag, priority: todoPriority)
-        
-        try! realm.write {
-            realm.add(todoData)
-            print("Realm Saved--")
+        // 제목 작성 됐는지 검사
+        if todoTitle == "" {
+            self.view.makeToast("제목을 입력해주세요", duration: 2.0, position: .top)
+        } else {
+            let todoData = TodoTable(todoTitle: todoTitle,
+                                     todoMemo: todoMemo,
+                                     date: changedValues[TableViewSection.todoDate.rawValue],
+                                     tag: changedValues[TableViewSection.todoTag.rawValue],
+                                     priority: changedValues[TableViewSection.priority.rawValue])
+            
+            repository.createTodo(todoData)
+            
+            // Home 화면 count 갱신을 위한 Noti post
+            NotificationCenter.default.post(name: AddTodoViewController.allListDidChanged, object: nil)
+            
+            dismiss(animated: true)
         }
-        
-        dismiss(animated: true)
     }
     
     @objc func cancelButtonTapped() {
         dismiss(animated: true)
     }
+}
+
+// MARK: - Notification
+
+extension AddTodoViewController {
+    static let allListDidChanged = Notification.Name("allListDidChanged")
 }

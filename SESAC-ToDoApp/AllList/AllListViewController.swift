@@ -10,6 +10,8 @@ import RealmSwift
 
 class AllListViewController: BaseViewController {
     
+    let repository = TodoTableRepository()
+    
     var todoList: Results<TodoTable>! {
         didSet {
             listTableView.reloadData()
@@ -25,19 +27,16 @@ class AllListViewController: BaseViewController {
     
     lazy var optionButtonItems: [UIAction] = {
         let orderByDate = UIAction(title: "마감일 순") { _ in
-            self.getTodoList("date")
+            self.todoList = self.repository.fetchSortedTodoList("date")
         }
         
         let orderByTitle = UIAction(title: "제목 순") { _ in
-            self.getTodoList("todoTitle")
+            self.todoList = self.repository.fetchSortedTodoList("todoTitle")
         }
         
         let items = [orderByDate, orderByTitle]
         return items
     }()
-
-    
-
 
      // MARK: - Life Cycle Method
     
@@ -50,10 +49,7 @@ class AllListViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        let realm = try! Realm()
-        
-        todoList = realm.objects(TodoTable.self)
+        todoList = repository.fetchTodoList()
     }
     
      // MARK: - UI Configuration Method
@@ -77,11 +73,6 @@ class AllListViewController: BaseViewController {
         rightNavItem.menu = UIMenu(title: "정렬", children: optionButtonItems)
         navigationItem.rightBarButtonItem = rightNavItem
     }
-    
-    @objc private func getTodoList(_ keyPath: String) {
-        let realm = try! Realm()
-        todoList = realm.objects(TodoTable.self).sorted(byKeyPath: keyPath)
-    }
 }
 
  // MARK: - UITableView Delegate
@@ -96,16 +87,34 @@ extension AllListViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.selectionStyle = .none
         
-        cell.titleLabel.text = todoList[indexPath.row].todoTitle
-        cell.titleLabel.font = .boldSystemFont(ofSize: 20)
-        
-        cell.subtitleLabel.text = todoList[indexPath.row].date
-        cell.subtitleLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+        let todo = todoList[indexPath.row]
+        cell.todo = todo
+        cell.configureTodoCell(todo)
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return 100
+    }
+    
+    // Swipe Delete
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let targetTodo = todoList[indexPath.row]
+            repository.deleteTodo(targetTodo)
+            tableView.reloadData()
+            
+            // Home 화면 count 갱신을 위한 Noti post
+            NotificationCenter.default.post(name: AddTodoViewController.allListDidChanged, object: nil)
+        }
     }
 }

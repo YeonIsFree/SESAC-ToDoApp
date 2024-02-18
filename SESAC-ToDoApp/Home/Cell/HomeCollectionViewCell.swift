@@ -25,7 +25,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
     
     let countLabel: UILabel = {
         let label = UILabel()
-        label.text = "1"
+        label.text = ""
         label.font = .boldSystemFont(ofSize: 32)
         return label
     }()

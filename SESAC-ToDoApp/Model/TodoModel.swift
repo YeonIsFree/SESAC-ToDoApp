@@ -15,6 +15,7 @@ class TodoTable: Object {
     @Persisted var date: String
     @Persisted var tag: String
     @Persisted var priority: String
+    @Persisted var isCompleted: Bool
     
     convenience init(todoTitle: String, todoMemo: String, date: String, tag: String, priority: String) {
         self.init()
@@ -23,5 +24,6 @@ class TodoTable: Object {
         self.date = date
         self.tag = tag
         self.priority = priority
+        self.isCompleted = false
     }
 }

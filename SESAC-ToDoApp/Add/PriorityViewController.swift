@@ -7,12 +7,12 @@
 
 import UIKit
 
-class PriorityViewController: BaseViewController {
+class PriorityViewController: BaseViewController, PassDataDelegate {
     
-    var todoPriority: ((String) -> Void)?
+    var changedValue: ((String) -> Void)?
     
     lazy var segmentedControl: UISegmentedControl = {
-        let control = UISegmentedControl(items: ["덜 중요", "보통", "중요", "매우 중요"])
+        let control = UISegmentedControl(items: ["덜 중요", "중요", "매우 중요"])
         control.addTarget(self, action: #selector(segConTapped), for: .valueChanged)
         return control
     }()
@@ -29,7 +29,7 @@ class PriorityViewController: BaseViewController {
         // 클로저로 이전 화면에 값 전달
         let idx = segmentedControl.selectedSegmentIndex
         if let priority = segmentedControl.titleForSegment(at: idx) {
-            todoPriority?(priority)
+            changedValue?(priority)
             
             // 값이 변경되었다고 Noti
             NotificationCenter.default.post(name: PriorityViewController.priorityDidChanged, object: nil, userInfo: ["todoPriority": priority])

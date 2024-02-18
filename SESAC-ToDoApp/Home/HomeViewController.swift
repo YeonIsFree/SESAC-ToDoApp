@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import RealmSwift
 
 enum HomeList: Int, CaseIterable {
     case today
@@ -48,6 +49,11 @@ enum HomeList: Int, CaseIterable {
 
 class HomeViewController: BaseViewController {
     
+    var allCount: Int = 0
+    let repository = TodoTableRepository()
+    
+     // MARK: - UI Properties
+    
     lazy var todoCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureFlowLayout())
         return collectionView
@@ -62,8 +68,13 @@ class HomeViewController: BaseViewController {
         configureNavigationBar()
         configureToolBar()
         configureCollectionView()
+        
+        NotificationCenter.default.addObserver(forName: AddTodoViewController.allListDidChanged, object: nil, queue: OperationQueue.main) { [weak self] _ in
+            print("allListDidChanged!!")
+            self?.todoCollectionView.reloadData()
+        }
     }
-    
+
      // MARK: - UI Configuration Methods
     
     override func render() {
@@ -142,15 +153,30 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.backgroundColor = .darkGray
         cell.layer.cornerRadius = 10
         
+        // 전체 셀 갯수
+        if indexPath.item == HomeList.all.rawValue {
+            let list = repository.fetchTodoList()
+            cell.countLabel.text = "\(list.count)"
+        }
+        
+        // 셀 구성
         cell.configureCell(indexPath.item)
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         // "전체" 셀을 누를 경우 화면 전환
         if indexPath.item == HomeList.all.rawValue {
             let vc = AllListViewController()
+            vc.navigationItem.title = HomeList(rawValue: indexPath.item)?.title
+            navigationController?.pushViewController(vc, animated: true)
+        }
+        
+        // "완료" 셀을 누를 경우 화면 전환
+        if indexPath.item == HomeList.done.rawValue {
+            let vc = CompleteViewController()
             vc.navigationItem.title = HomeList(rawValue: indexPath.item)?.title
             navigationController?.pushViewController(vc, animated: true)
         }

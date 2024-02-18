@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C22041B2B826DA600519E19 /* TodoTableRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C22041A2B826DA600519E19 /* TodoTableRepository.swift */; };
+		8C22041E2B8271AF00519E19 /* CompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C22041D2B8271AF00519E19 /* CompleteViewController.swift */; };
+		8C2204212B8273E800519E19 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 8C2204202B8273E800519E19 /* Toast */; };
 		8C4691482B7C8FB20024FD0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4691472B7C8FB20024FD0A /* AppDelegate.swift */; };
 		8C46914A2B7C8FB20024FD0A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4691492B7C8FB20024FD0A /* SceneDelegate.swift */; };
 		8C46914C2B7C8FB20024FD0A /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C46914B2B7C8FB20024FD0A /* BaseViewController.swift */; };
@@ -29,9 +32,12 @@
 		8C46918A2B7E0DA20024FD0A /* TodoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4691892B7E0DA20024FD0A /* TodoModel.swift */; };
 		8C46918D2B7E18520024FD0A /* AllListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C46918C2B7E18520024FD0A /* AllListViewController.swift */; };
 		8C46918F2B7E1FA40024FD0A /* AllListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C46918E2B7E1FA40024FD0A /* AllListTableViewCell.swift */; };
+		8C4691912B7E3F2A0024FD0A /* PassDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4691902B7E3F2A0024FD0A /* PassDataDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8C22041A2B826DA600519E19 /* TodoTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableRepository.swift; sourceTree = "<group>"; };
+		8C22041D2B8271AF00519E19 /* CompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteViewController.swift; sourceTree = "<group>"; };
 		8C4691442B7C8FB20024FD0A /* SESAC-ToDoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SESAC-ToDoApp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C4691472B7C8FB20024FD0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8C4691492B7C8FB20024FD0A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -53,6 +59,7 @@
 		8C4691892B7E0DA20024FD0A /* TodoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoModel.swift; sourceTree = "<group>"; };
 		8C46918C2B7E18520024FD0A /* AllListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllListViewController.swift; sourceTree = "<group>"; };
 		8C46918E2B7E1FA40024FD0A /* AllListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllListTableViewCell.swift; sourceTree = "<group>"; };
+		8C4691902B7E3F2A0024FD0A /* PassDataDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassDataDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C2204212B8273E800519E19 /* Toast in Frameworks */,
 				8C4691872B7E0C260024FD0A /* RealmSwift in Frameworks */,
 				8C4691852B7E0C260024FD0A /* Realm in Frameworks */,
 				8C46915E2B7C90960024FD0A /* SnapKit in Frameworks */,
@@ -69,6 +77,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8C22041C2B82719A00519E19 /* Complete */ = {
+			isa = PBXGroup;
+			children = (
+				8C22041D2B8271AF00519E19 /* CompleteViewController.swift */,
+			);
+			path = Complete;
+			sourceTree = "<group>";
+		};
 		8C46913B2B7C8FB20024FD0A = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +111,7 @@
 				8C4691732B7CFFD30024FD0A /* Base */,
 				8C4691752B7CFFE50024FD0A /* Home */,
 				8C46918B2B7E181B0024FD0A /* AllList */,
+				8C22041C2B82719A00519E19 /* Complete */,
 				8C4691742B7CFFD80024FD0A /* Add */,
 				8C4691552B7C8FB30024FD0A /* Info.plist */,
 			);
@@ -179,6 +196,8 @@
 			isa = PBXGroup;
 			children = (
 				8C4691892B7E0DA20024FD0A /* TodoModel.swift */,
+				8C4691902B7E3F2A0024FD0A /* PassDataDelegate.swift */,
+				8C22041A2B826DA600519E19 /* TodoTableRepository.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -212,6 +231,7 @@
 				8C46915D2B7C90960024FD0A /* SnapKit */,
 				8C4691842B7E0C260024FD0A /* Realm */,
 				8C4691862B7E0C260024FD0A /* RealmSwift */,
+				8C2204202B8273E800519E19 /* Toast */,
 			);
 			productName = "SESAC-ToDoApp";
 			productReference = 8C4691442B7C8FB20024FD0A /* SESAC-ToDoApp.app */;
@@ -244,6 +264,7 @@
 			packageReferences = (
 				8C46915C2B7C90960024FD0A /* XCRemoteSwiftPackageReference "SnapKit" */,
 				8C4691832B7E0C260024FD0A /* XCRemoteSwiftPackageReference "realm-swift" */,
+				8C22041F2B8273E800519E19 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 			);
 			productRefGroup = 8C4691452B7C8FB20024FD0A /* Products */;
 			projectDirPath = "";
@@ -272,6 +293,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C4691912B7E3F2A0024FD0A /* PassDataDelegate.swift in Sources */,
 				8C46914C2B7C8FB20024FD0A /* BaseViewController.swift in Sources */,
 				8C46918F2B7E1FA40024FD0A /* AllListTableViewCell.swift in Sources */,
 				8C4691672B7CA3360024FD0A /* AddTodoViewController.swift in Sources */,
@@ -279,6 +301,7 @@
 				8C4691632B7C97B10024FD0A /* Identifiable+.swift in Sources */,
 				8C4691482B7C8FB20024FD0A /* AppDelegate.swift in Sources */,
 				8C46918A2B7E0DA20024FD0A /* TodoModel.swift in Sources */,
+				8C22041B2B826DA600519E19 /* TodoTableRepository.swift in Sources */,
 				8C46914A2B7C8FB20024FD0A /* SceneDelegate.swift in Sources */,
 				8C4691692B7CA4380024FD0A /* AddTableViewCell.swift in Sources */,
 				8C46918D2B7E18520024FD0A /* AllListViewController.swift in Sources */,
@@ -287,6 +310,7 @@
 				8C4691712B7CE40D0024FD0A /* PriorityViewController.swift in Sources */,
 				8C46916B2B7CD7E90024FD0A /* DateViewController.swift in Sources */,
 				8C46916D2B7CDE8D0024FD0A /* SubTableViewCell.swift in Sources */,
+				8C22041E2B8271AF00519E19 /* CompleteViewController.swift in Sources */,
 				8C4691602B7C90DE0024FD0A /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -520,6 +544,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		8C22041F2B8273E800519E19 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
 		8C46915C2B7C90960024FD0A /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -539,6 +571,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		8C2204202B8273E800519E19 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8C22041F2B8273E800519E19 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
+		};
 		8C46915D2B7C90960024FD0A /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8C46915C2B7C90960024FD0A /* XCRemoteSwiftPackageReference "SnapKit" */;

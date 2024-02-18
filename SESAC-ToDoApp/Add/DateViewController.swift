@@ -7,9 +7,9 @@
 
 import UIKit
 
-class DateViewController: BaseViewController {
+class DateViewController: BaseViewController, PassDataDelegate {
     
-    var changedDate: ((String) -> Void)?
+    var changedValue: ((String) -> Void)?
     
     let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
@@ -31,7 +31,7 @@ class DateViewController: BaseViewController {
         
         print(datePicker.date)
         
-        changedDate?(date)
+        changedValue?(date)
        
         NotificationCenter.default.post(name: DateViewController.dateDidChanged, object: nil, userInfo: ["todoDate": date])
     }

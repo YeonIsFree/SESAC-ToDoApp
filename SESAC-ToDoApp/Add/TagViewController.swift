@@ -7,10 +7,10 @@
 
 import UIKit
 
-class TagViewController: BaseViewController {
+class TagViewController: BaseViewController, PassDataDelegate {
     
-    var changedTag: ((String) -> Void)?
-    
+    var changedValue: ((String) -> Void)?
+
     let tagTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "태그를 입력하세요"
@@ -27,6 +27,8 @@ class TagViewController: BaseViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        changedValue?(tagTextField.text!)
         
         NotificationCenter.default.post(name: TagViewController.tagDidChanged, object: nil, userInfo: ["todoTag": tagTextField.text!])
     }
