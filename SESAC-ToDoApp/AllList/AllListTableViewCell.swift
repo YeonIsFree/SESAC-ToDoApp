@@ -17,9 +17,7 @@ class AllListTableViewCell: UITableViewCell {
     
     let checkButton: UIButton = {
        let button = UIButton()
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.gray.cgColor
-        
+        button.tintColor = .white
         return button
     }()
     
@@ -45,7 +43,6 @@ class AllListTableViewCell: UITableViewCell {
     
     let tagLabel: UILabel = {
         let label = UILabel()
-        label.text = "#테스트, #테스트"
         label.textColor = .systemBlue
         return label
     }()
@@ -84,22 +81,34 @@ class AllListTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-     // MARK: - UI Configuration Methods
+    // MARK: - UI Configuration Methods
     
     func configureTodoCell(_ todo: TodoTable) {
         titleLabel.text = todo.todoTitle
         memoLabel.text = todo.todoMemo
         dateLabel.text = todo.date
+        
+        if todo.tag != "" {
+            tagLabel.text = "#\(todo.tag)"
+        }
         priorityLabel.text = todo.priority
+        
+        let image = (todo.isCompleted) ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
+        checkButton.setImage(image, for: .normal)
     }
     
-     // MARK: - 버튼 왜 에러나지ㅠㅠㅠㅠㅠㅠㅜㅜㅜㅜㅜㅜㅜㅜ
+    // MARK: -
+    
     @objc
-    private func checkButtonTapped(sender: UIButton) {
-        print("눌림")
+    private func checkButtonTapped() {
         if let todo {
             repository.updateTodoStatus(todo)
-           
+            let image = (todo.isCompleted) ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
+            checkButton.setImage(image, for: .normal)
+            
+            // CompleteList 값이 변경됨을 알림
+            NotificationCenter.default.post(name: CompleteViewController.completeListDidChanged, object: nil)
+            
         }
     }
     
@@ -125,11 +134,5 @@ class AllListTableViewCell: UITableViewCell {
             make.height.equalTo(20)
         }
         
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        checkButton.clipsToBounds = true
-        checkButton.layer.cornerRadius = checkButton.bounds.width / 2
     }
 }

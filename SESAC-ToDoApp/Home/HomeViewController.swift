@@ -73,6 +73,11 @@ class HomeViewController: BaseViewController {
             print("allListDidChanged!!")
             self?.todoCollectionView.reloadData()
         }
+        
+        NotificationCenter.default.addObserver(forName: CompleteViewController.completeListDidChanged, object: nil, queue: OperationQueue.main) { [weak self] _ in
+            print("completeListDidChanged!!")
+            self?.todoCollectionView.reloadData()
+        }
     }
 
      // MARK: - UI Configuration Methods
@@ -158,6 +163,13 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             let list = repository.fetchTodoList()
             cell.countLabel.text = "\(list.count)"
         }
+        // 완료 셀 갯수
+        else if indexPath.item == HomeList.done.rawValue {
+            let list = repository.fetchCompletedList()
+            cell.countLabel.text = "\(list.count)"
+        } else {
+            cell.countLabel.text = ""
+        }
         
         // 셀 구성
         cell.configureCell(indexPath.item)
@@ -173,9 +185,8 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             vc.navigationItem.title = HomeList(rawValue: indexPath.item)?.title
             navigationController?.pushViewController(vc, animated: true)
         }
-        
         // "완료" 셀을 누를 경우 화면 전환
-        if indexPath.item == HomeList.done.rawValue {
+        else if indexPath.item == HomeList.done.rawValue {
             let vc = CompleteViewController()
             vc.navigationItem.title = HomeList(rawValue: indexPath.item)?.title
             navigationController?.pushViewController(vc, animated: true)

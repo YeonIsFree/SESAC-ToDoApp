@@ -22,6 +22,7 @@ class CompleteViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,6 +42,7 @@ class CompleteViewController: BaseViewController {
     private func configureTableView() {
         completeTableView.delegate = self
         completeTableView.dataSource = self
+        completeTableView.register(AllListTableViewCell.self, forCellReuseIdentifier: AllListTableViewCell.identifier)
     }
 }
 
@@ -59,6 +61,10 @@ extension CompleteViewController: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
-    
-    
+}
+
+ // MARK: - Noti
+
+extension CompleteViewController {
+    static let completeListDidChanged = Notification.Name("completeistDidchanged")
 }
